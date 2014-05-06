@@ -115,6 +115,7 @@
             matrix[column][i].state = state;
             _lastPieceAddedToBoard = CGPointMake(column, i);
             thispoint =  matrix[column][i].center;
+            break;
         }
     }
         
