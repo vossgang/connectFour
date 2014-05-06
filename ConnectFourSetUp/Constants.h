@@ -16,4 +16,5 @@ enum Turn {redTurn, blackTurn, start, end};
 #define CIRCLE_SIZE 45.5
 #define ROWS 9
 #define COLUMNS 7
+#define NUMBER_NEEDED_FOR_DELETION 4
 @end

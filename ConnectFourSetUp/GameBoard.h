@@ -24,8 +24,8 @@
 -(void)setState: (enum State)state forPieceAt: (CGPoint)location;
 -(enum Turn)nextTurn;
 
--(BOOL)addPieceForColumn:(NSInteger)column;
--(BOOL)addPieceWithState:(enum State)state forColumn:(NSInteger)column;
+-(CGPoint)addPieceForColumn:(NSInteger)column;
+-(CGPoint)addPieceWithState:(enum State)state forColumn:(NSInteger)column;
 
 -(void)setFrame:(CGRect)frame forPieceAt:(CGPoint)location;
 
