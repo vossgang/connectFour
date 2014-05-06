@@ -15,6 +15,7 @@
 @interface ViewController ()
 
 @property (strong, nonatomic) GameBoard *gameBoard;
+@property (strong, nonatomic) UIView *shape;
 @end
 
 @implementation ViewController
@@ -24,8 +25,13 @@
     [super viewDidLoad];
     
     _gameBoard = [[GameBoard alloc] initWithEmptySlots];
+    _shape = [UIView new];
+    _shape.frame = CGRectMake(0, 0, CIRCLE_SIZE, CIRCLE_SIZE);
+    _shape.backgroundColor = [UIColor redColor];
     
     [self setupBoardView];
+    [self.view addSubview:_shape];
+
 }
 
 -(void)setupBoardView {
@@ -52,6 +58,45 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
+    
+    for (UITouch *touch in touches) {
+        
+        CGPoint touchPoint = [touch locationInView:self.view];
+        
+        if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
+            
+            //            _shape.center = touchPoint;
+            [UIView animateWithDuration:.25 animations:^{
+                _shape.transform = CGAffineTransformMakeScale(.9, .9);
+                _shape.center   = touchPoint;
+            } completion:^(BOOL finished) {
+                [UIView animateWithDuration:.25 animations:^{
+                    _shape.transform = CGAffineTransformMakeScale(1, 1);
+                }];
+            }];
+        }
+    }
+    
+    
+  
+}
+
+
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    
+    for (UITouch *touch in touches) {
+        
+        CGPoint touchPoint = [touch locationInView:self.view];
+        
+        if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
+            
+            _shape.center = touchPoint;
+        }
+    }
+}
+
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    
     for (UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self.view];
         
@@ -74,38 +119,43 @@
         }
         
         touchStripe += CIRCLE_SIZE;
-
+        
         if (touchPoint.x > 136.5 && touchPoint.x < 182) {
             [_gameBoard addPieceForColumn:3];
             return;
         }
         
         touchStripe += CIRCLE_SIZE;
-
+        
         if (touchPoint.x > 182 && touchPoint.x < 227) {
             [_gameBoard addPieceForColumn:4];
             return;
         }
         
         touchStripe += CIRCLE_SIZE;
-
+        
         if (touchPoint.x > 227 && touchPoint.x < 273) {
             [_gameBoard addPieceForColumn:5];
             return;
         }
         
         touchStripe += CIRCLE_SIZE;
-
+        
         
         if (touchPoint.x > 273) {
             [_gameBoard addPieceForColumn:6];
             return;
         }
-    
+        
         
         
     }
 }
 
+
+- (float)distanceBetween: (CGPoint) p1 and: (CGPoint)p2
+{
+    return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
+}
 
 @end

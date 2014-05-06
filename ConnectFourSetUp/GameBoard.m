@@ -248,7 +248,7 @@
     NSInteger Y_location = _lastPieceAddedToBoard.y;
     
     //get the bottom left diagonal location
-    while ((X_location < COLUMNS) && (Y_location > 0)) {
+    while ((X_location < COLUMNS-1) && (Y_location > 0)) {
         X_location++;
         Y_location--;
         
