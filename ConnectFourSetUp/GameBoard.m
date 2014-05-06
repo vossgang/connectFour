@@ -94,29 +94,31 @@
     matrix[(int)location.x][(int)location.y].frame = frame;
 }
 
--(BOOL)addPieceForColumn:(NSInteger)column {
+-(CGPoint)addPieceForColumn:(NSInteger)column {
+    CGPoint thispoint;
     if (_turn == redTurn) {
-        [self addPieceWithState:redPiece forColumn:column];
+      thispoint =  [self addPieceWithState:redPiece forColumn:column];
     } else {
-        [self addPieceWithState:blackPiece forColumn:column];
+      thispoint =  [self addPieceWithState:blackPiece forColumn:column];
     }
     [self examineGameBoardForWinningCondition];
     [self nextTurn];
 
-    return YES;
+    return thispoint;
 }
 
--(BOOL)addPieceWithState:(enum State)state forColumn:(NSInteger)column {
+-(CGPoint)addPieceWithState:(enum State)state forColumn:(NSInteger)column {
     
+    CGPoint thispoint;
     for (int i = 0; i < ROWS; i++) {
         if (matrix[column][i].state == empty) {
             matrix[column][i].state = state;
             _lastPieceAddedToBoard = CGPointMake(column, i);
-            return YES;
+            thispoint =  matrix[column][i].center;
         }
     }
         
-    return NO;
+    return thispoint;
 }
 
 -(void)setPieceState:(enum State)state forLocation:(CGPoint)location   {
@@ -165,14 +167,14 @@
 }
 
 -(BOOL)examineRowForWinningCondition {
-    NSInteger row               = _lastPieceAddedToBoard.x;
+    NSInteger row               = _lastPieceAddedToBoard.y;
     NSInteger conjoinedPieces   = 1;
     
-    for (int column = 0; column < ROWS-1; column++) {
-        if (matrix[row][column].state != empty) {
-            if (matrix[row][column].state == matrix[row][column+1].state) {
+    for (int column = 0; column < COLUMNS-1; column++) {
+        if (matrix[column][row].state != empty) {
+            if (matrix[column][row].state == matrix[column+1][row].state) {
                 conjoinedPieces++;
-                if (conjoinedPieces == 4) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
             } else {
                 conjoinedPieces = 1;
             }
@@ -186,23 +188,40 @@
 
 
 -(BOOL)examineColumnForWinningCondition {
-    NSInteger column            = _lastPieceAddedToBoard.y;
+    NSInteger column            = _lastPieceAddedToBoard.x;
     NSInteger conjoinedPieces   = 1;
+    CGPoint   startOfConnectedPieces;
     
-    for (int row = 0; row < COLUMNS-1; row++) {
-        if (matrix[row][column].state != empty) {
-            if (matrix[row][column].state == matrix[row+1][column].state) {
+    for (int row = 0; row < ROWS-1; row++) {
+        startOfConnectedPieces = CGPointMake(column, row);
+        if (matrix[column][row].state != empty) {
+            if (matrix[column][row].state == matrix[column][row+1].state) {
                 conjoinedPieces++;
-                if (conjoinedPieces == 4) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION){
+                    [self deleteColumnPiecesStartingAtLocation:startOfConnectedPieces];
+                    //delete pieces and move rest down
+                    return YES;
+                }
             } else {
                 conjoinedPieces = 1;
+                startOfConnectedPieces = CGPointMake(column, row);
             }
         } else {
             conjoinedPieces = 1;
+            startOfConnectedPieces = CGPointMake(column, row);
         }
     }
     
     return NO;
+}
+
+-(void)deleteColumnPiecesStartingAtLocation:(CGPoint)location
+{
+    for (int i = 0 ; i < NUMBER_NEEDED_FOR_DELETION; i++) {
+        [self setState:empty forPieceAt:CGPointMake(location.x, location.y + i)];
+        //remove
+    }
+    
 }
 
 -(BOOL)examineDiagonalForWinningCondition
@@ -230,7 +249,7 @@
         if (matrix[col][row].state != empty) {
             if (matrix[col][row].state == matrix[col+1][row+1].state) {
                 conjoinedPieces++;
-                if (conjoinedPieces == 4) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
             } else {
                 conjoinedPieces = 1;
             }
@@ -260,7 +279,7 @@
         if (matrix[col][row].state != empty) {
             if (matrix[col][row].state == matrix[col-1][row+1].state) {
                 conjoinedPieces++;
-                if (conjoinedPieces == 4) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
             } else {
                 conjoinedPieces = 1;
             }
