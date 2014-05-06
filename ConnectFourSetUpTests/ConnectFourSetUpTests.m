@@ -139,14 +139,14 @@
 //    }
 //}
 
--(void)testifPieceCanBeAddedToColumn {
-    
-    _gameBoard = [[GameBoard alloc] initWithEmptySlots];
-    
-    for (int i = 0; i < 7; i++ ) {
-        XCTAssertTrue([_gameBoard addPieceForColumn:i], @"Piece should have been added to column");
-    }
-}
+//-(void)testifPieceCanBeAddedToColumn {
+//    
+//    _gameBoard = [[GameBoard alloc] initWithEmptySlots];
+//    
+//    for (int i = 0; i < 7; i++ ) {
+//        XCTAssertTrue([_gameBoard addPieceForColumn:i], @"Piece should have been added to column");
+//    }
+//}
 
 -(void)testSetFrameForPieceInMatrix {
     _gameBoard = [[GameBoard alloc] initWithEmptySlots];
