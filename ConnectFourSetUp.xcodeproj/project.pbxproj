@@ -14,13 +14,18 @@
 		C9CD510219198E7000C41AC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD510119198E7000C41AC5 /* main.m */; };
 		C9CD510619198E7000C41AC5 /* MVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD510519198E7000C41AC5 /* MVAppDelegate.m */; };
 		C9CD510919198E7000C41AC5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9CD510719198E7000C41AC5 /* Main.storyboard */; };
-		C9CD510C19198E7000C41AC5 /* MVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD510B19198E7000C41AC5 /* MVViewController.m */; };
 		C9CD510E19198E7000C41AC5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9CD510D19198E7000C41AC5 /* Images.xcassets */; };
 		C9CD511519198E7100C41AC5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CD511419198E7100C41AC5 /* XCTest.framework */; };
 		C9CD511619198E7100C41AC5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CD50F519198E7000C41AC5 /* Foundation.framework */; };
 		C9CD511719198E7100C41AC5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9CD50F919198E7000C41AC5 /* UIKit.framework */; };
 		C9CD511F19198E7100C41AC5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9CD511D19198E7100C41AC5 /* InfoPlist.strings */; };
 		C9CD512119198E7100C41AC5 /* ConnectFourSetUpTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD512019198E7100C41AC5 /* ConnectFourSetUpTests.m */; };
+		C9CD512C19198E9100C41AC5 /* GamePiece.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD512B19198E9100C41AC5 /* GamePiece.m */; };
+		C9CD513219198EA600C41AC5 /* GameBoard.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD512E19198EA600C41AC5 /* GameBoard.m */; };
+		C9CD513319198EA600C41AC5 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD513019198EA600C41AC5 /* Player.m */; };
+		C9CD513819198EC000C41AC5 /* StyleKitName.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD513519198EC000C41AC5 /* StyleKitName.m */; };
+		C9CD513919198EC000C41AC5 /* tokenButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD513719198EC000C41AC5 /* tokenButton.m */; };
+		C9CD513C19198EDA00C41AC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C9CD513B19198EDA00C41AC5 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +50,25 @@
 		C9CD510419198E7000C41AC5 /* MVAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVAppDelegate.h; sourceTree = "<group>"; };
 		C9CD510519198E7000C41AC5 /* MVAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MVAppDelegate.m; sourceTree = "<group>"; };
 		C9CD510819198E7000C41AC5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		C9CD510A19198E7000C41AC5 /* MVViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MVViewController.h; sourceTree = "<group>"; };
-		C9CD510B19198E7000C41AC5 /* MVViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MVViewController.m; sourceTree = "<group>"; };
 		C9CD510D19198E7000C41AC5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C9CD511319198E7100C41AC5 /* ConnectFourSetUpTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ConnectFourSetUpTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9CD511419198E7100C41AC5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C9CD511C19198E7100C41AC5 /* ConnectFourSetUpTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "ConnectFourSetUpTests-Info.plist"; sourceTree = "<group>"; };
 		C9CD511E19198E7100C41AC5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C9CD512019198E7100C41AC5 /* ConnectFourSetUpTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectFourSetUpTests.m; sourceTree = "<group>"; };
+		C9CD512A19198E8500C41AC5 /* GamePiece.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GamePiece.h; sourceTree = "<group>"; };
+		C9CD512B19198E9100C41AC5 /* GamePiece.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GamePiece.m; sourceTree = "<group>"; };
+		C9CD512D19198EA600C41AC5 /* GameBoard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameBoard.h; sourceTree = "<group>"; };
+		C9CD512E19198EA600C41AC5 /* GameBoard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameBoard.m; sourceTree = "<group>"; };
+		C9CD512F19198EA600C41AC5 /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		C9CD513019198EA600C41AC5 /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		C9CD513119198EA600C41AC5 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		C9CD513419198EC000C41AC5 /* StyleKitName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StyleKitName.h; sourceTree = "<group>"; };
+		C9CD513519198EC000C41AC5 /* StyleKitName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StyleKitName.m; sourceTree = "<group>"; };
+		C9CD513619198EC000C41AC5 /* tokenButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tokenButton.h; sourceTree = "<group>"; };
+		C9CD513719198EC000C41AC5 /* tokenButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = tokenButton.m; sourceTree = "<group>"; };
+		C9CD513A19198EDA00C41AC5 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		C9CD513B19198EDA00C41AC5 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,10 +130,21 @@
 			children = (
 				C9CD510419198E7000C41AC5 /* MVAppDelegate.h */,
 				C9CD510519198E7000C41AC5 /* MVAppDelegate.m */,
+				C9CD512A19198E8500C41AC5 /* GamePiece.h */,
+				C9CD512B19198E9100C41AC5 /* GamePiece.m */,
+				C9CD512D19198EA600C41AC5 /* GameBoard.h */,
+				C9CD512E19198EA600C41AC5 /* GameBoard.m */,
+				C9CD512F19198EA600C41AC5 /* Player.h */,
+				C9CD513019198EA600C41AC5 /* Player.m */,
+				C9CD513119198EA600C41AC5 /* Constants.h */,
+				C9CD513419198EC000C41AC5 /* StyleKitName.h */,
+				C9CD513519198EC000C41AC5 /* StyleKitName.m */,
+				C9CD513619198EC000C41AC5 /* tokenButton.h */,
+				C9CD513719198EC000C41AC5 /* tokenButton.m */,
 				C9CD510719198E7000C41AC5 /* Main.storyboard */,
-				C9CD510A19198E7000C41AC5 /* MVViewController.h */,
-				C9CD510B19198E7000C41AC5 /* MVViewController.m */,
 				C9CD510D19198E7000C41AC5 /* Images.xcassets */,
+				C9CD513A19198EDA00C41AC5 /* ViewController.h */,
+				C9CD513B19198EDA00C41AC5 /* ViewController.m */,
 				C9CD50FC19198E7000C41AC5 /* Supporting Files */,
 			);
 			path = ConnectFourSetUp;
@@ -251,7 +278,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9CD510219198E7000C41AC5 /* main.m in Sources */,
-				C9CD510C19198E7000C41AC5 /* MVViewController.m in Sources */,
+				C9CD513219198EA600C41AC5 /* GameBoard.m in Sources */,
+				C9CD513C19198EDA00C41AC5 /* ViewController.m in Sources */,
+				C9CD512C19198E9100C41AC5 /* GamePiece.m in Sources */,
+				C9CD513819198EC000C41AC5 /* StyleKitName.m in Sources */,
+				C9CD513919198EC000C41AC5 /* tokenButton.m in Sources */,
+				C9CD513319198EA600C41AC5 /* Player.m in Sources */,
 				C9CD510619198E7000C41AC5 /* MVAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
