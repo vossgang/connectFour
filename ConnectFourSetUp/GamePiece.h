@@ -22,6 +22,7 @@
 -(void)setState:(enum State)state;
 -(BOOL)isBlack;
 -(BOOL)isRed;
+-(void)refreshView;
 
 +(GamePiece *)newPieceWithColor: (UIColor *)color;
 

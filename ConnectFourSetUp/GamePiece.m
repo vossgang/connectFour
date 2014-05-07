@@ -24,21 +24,12 @@
     _state = state;
     
     self.backgroundColor = [UIColor clearColor];
-    [UIView animateWithDuration:.5 animations:^{
-        self.transform = CGAffineTransformMakeScale(.8, .8);
-        [UIView animateWithDuration:.5 animations:^{
-            self.transform = CGAffineTransformMakeScale(1, 1);
-            
-        }];
-    }];
-    
     switch (_state) {
         case blackPiece:
-            self.backgroundColor = [UIColor darkGrayColor];
+            self.backgroundColor = [UIColor blackColor];
             self.layer.cornerRadius = self.frame.size.width / 2;
             self.clipsToBounds = YES;
-//            self.layer.borderWidth = 2;
-            self.alpha = .5;
+            self.alpha = 0;
             self.layer.borderColor = [UIColor blackColor].CGColor;
             break;
             
@@ -46,8 +37,7 @@
             self.backgroundColor = [UIColor redColor];
             self.layer.cornerRadius = self.frame.size.width / 2;
             self.clipsToBounds = YES;
-//            self.layer.borderWidth = 2;
-            self.alpha = .5;
+            self.alpha = 0;
             self.layer.borderColor = [UIColor blackColor].CGColor;
             break;
             
@@ -55,7 +45,9 @@
             self.backgroundColor = [UIColor clearColor];
             break;
     }
+    
 }
+
 
 -(BOOL)isBlack {
     if (_state == blackPiece) return YES;
@@ -69,7 +61,7 @@
 
 -(void)drawRect:(CGRect)rect {
     
-    [StyleKitName drawCanvas1];
+//    [StyleKitName drawCanvas1];
 
 }
 

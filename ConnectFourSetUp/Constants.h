@@ -17,4 +17,6 @@ enum Turn {redTurn, blackTurn, start, end};
 #define ROWS 9
 #define COLUMNS 7
 #define NUMBER_NEEDED_FOR_DELETION 4
+#define STARTING_POINT CGPointMake(25,25)
+
 @end
