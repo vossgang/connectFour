@@ -137,8 +137,9 @@
     return matrix[(int)location.x][(int)location.y];
 }
 
--(BOOL)examineGameBoardForWinningCondition {
-    
+-(BOOL)examineGameBoardForWinningConditionFromPoint:(CGPoint)point
+{
+    _lastPieceAddedToBoard = point;
     if ([self examineRowForWinningCondition] || [self examineColumnForWinningCondition] || [self examineDiagonalForWinningCondition]) {
         NSLog(@"WIN!");
         return YES;
