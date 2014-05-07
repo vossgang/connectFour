@@ -31,6 +31,8 @@
     
     [self setupBoardView];
     [self.view addSubview:_shape];
+    _shape.layer.cornerRadius = _shape.frame.size.width / 2;
+    [self changeShapeColorToCurrent];
 
 }
 
@@ -65,11 +67,11 @@
         
         if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
             NSLog(@"%f", [self distanceBetween:touchPoint and:_shape.center]);
-            //            _shape.center = touchPoint;
+//                        _shape.center = touchPoint;
             [UIView animateWithDuration:.25 animations:^{
                 _shape.transform = CGAffineTransformMakeScale(.9, .9);
                 _shape.center   = touchPoint;
-            } co1111mpletion:^(BOOL finished) {
+            } completion:^(BOOL finished) {
                 [UIView animateWithDuration:.25 animations:^{
                     _shape.transform = CGAffineTransformMakeScale(1, 1);
                 }];
@@ -95,26 +97,37 @@
     }
 }
 
+
+
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    for (UITouch *touch in touches) {
+     
+     for (UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self.view];
-        
-        CGPoint locationInMatrix;
-        for (locationInMatrix.x = 0; locationInMatrix.x < COLUMNS; locationInMatrix.x++) {
-            for (locationInMatrix.y = 0; locationInMatrix.y < ROWS; locationInMatrix.y++) {
-                if ([self distanceBetween:locationInMatrix and:touchPoint] < CIRCLE_SIZE) {
-                    [_gameBoard addPieceForColumn:(int)locationInMatrix.y];
-                }
-            }
+            
+        NSInteger locationInMatrix = touchPoint.x / CIRCLE_SIZE;
+        [_gameBoard addPieceForColumn:(int)locationInMatrix];
         }
-    }
+     
+    [self changeShapeColorToCurrent];
+     
+    
 }
 
 
 - (float)distanceBetween: (CGPoint) p1 and: (CGPoint)p2
 {
     return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
+}
+
+- (void)changeShapeColorToCurrent {
+    switch (_gameBoard.turn) {
+        case blackTurn:
+            _shape.backgroundColor = [UIColor blackColor];
+            break;
+        case redTurn:
+            _shape.backgroundColor = [UIColor redColor];
+            break;
+    }
 }
 
 
