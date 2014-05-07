@@ -30,6 +30,6 @@
 -(void)setFrame:(CGRect)frame forPieceAt:(CGPoint)location;
 
 -(GamePiece *)viewAt:(CGPoint)location;
--(BOOL)examineGameBoardForWinningCondition;
+-(BOOL)examineGameBoardForWinningConditionFromPoint:(CGPoint)point;
 
 @end

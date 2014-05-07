@@ -101,7 +101,7 @@
     } else {
       thispoint =  [self addPieceWithState:blackPiece forColumn:column];
     }
-    [self examineGameBoardForWinningCondition];
+    [self examineGameBoardForWinningConditionFromPoint:_lastPieceAddedToBoard];
     [self nextTurn];
 
     return thispoint;
@@ -118,7 +118,7 @@
             break;
         }
     }
-        
+    
     return thispoint;
 }
 
@@ -127,38 +127,14 @@
     return;
 }
 
--(GamePiece *)viewAt:(CGPoint)location {
+-(GamePiece *)viewAt:(CGPoint)location
+{
     return matrix[(int)location.x][(int)location.y];
 }
 
-
-//-(NSInteger)familialNeighborCountForPieceAt:(CGPoint)location {
-//    
-//    if (matrix[(int)location.x][(int)location.y].isRed) {
-//        return  matrix[(int)location.x-1][(int)location.y-1].isRed +
-//                matrix[(int)location.x][(int)location.y-1].isRed   +
-//                matrix[(int)location.x+1][(int)location.y-1].isRed +
-//                matrix[(int)location.x-1][(int)location.y].isRed   +
-//                matrix[(int)location.x+1][(int)location.y].isRed   +
-//                matrix[(int)location.x-1][(int)location.y+1].isRed +
-//                matrix[(int)location.x][(int)location.y+1].isRed   +
-//                matrix[(int)location.x+1][(int)location.y+1].isRed;
-//    } else {
-//        return  matrix[(int)location.x-1][(int)location.y-1].isBlack +
-//                matrix[(int)location.x][(int)location.y-1].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y-1].isBlack +
-//                matrix[(int)location.x-1][(int)location.y].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y].isBlack   +
-//                matrix[(int)location.x-1][(int)location.y+1].isBlack +
-//                matrix[(int)location.x][(int)location.y+1].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y+1].isBlack;
-//    }
-//    
-//}
-
-
--(BOOL)examineGameBoardForWinningCondition {
-    
+-(BOOL)examineGameBoardForWinningConditionFromPoint:(CGPoint)point
+{
+    _lastPieceAddedToBoard = point;
     if ([self examineRowForWinningCondition] || [self examineColumnForWinningCondition] || [self examineDiagonalForWinningCondition]) {
         NSLog(@"WIN!");
         return YES;
@@ -167,15 +143,23 @@
     return NO;
 }
 
--(BOOL)examineRowForWinningCondition {
+-(BOOL)examineRowForWinningCondition
+{
     NSInteger row               = _lastPieceAddedToBoard.y;
     NSInteger conjoinedPieces   = 1;
+    CGPoint   startOfConnectedPieces;
     
     for (int column = 0; column < COLUMNS-1; column++) {
         if (matrix[column][row].state != empty) {
             if (matrix[column][row].state == matrix[column+1][row].state) {
+                if (conjoinedPieces == 1) {
+                    startOfConnectedPieces = CGPointMake(column, row);
+                }
                 conjoinedPieces++;
-                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION){
+                    [self deleteRowPiecesStartingAtLocation:startOfConnectedPieces];
+                    return YES;
+                }
             } else {
                 conjoinedPieces = 1;
             }
@@ -187,6 +171,14 @@
     return NO;
 }
 
+-(void)deleteRowPiecesStartingAtLocation:(CGPoint)location
+{
+    for (int i = 0 ; i < NUMBER_NEEDED_FOR_DELETION; i++) {
+        [self setState:empty forPieceAt:CGPointMake(location.x + i, location.y)];
+        //remove
+    }
+    [self movePiecesDown];
+}
 
 -(BOOL)examineColumnForWinningCondition {
     NSInteger column            = _lastPieceAddedToBoard.x;
@@ -194,9 +186,11 @@
     CGPoint   startOfConnectedPieces;
     
     for (int row = 0; row < ROWS-1; row++) {
-        startOfConnectedPieces = CGPointMake(column, row);
         if (matrix[column][row].state != empty) {
             if (matrix[column][row].state == matrix[column][row+1].state) {
+                if (conjoinedPieces == 1) {
+                    startOfConnectedPieces = CGPointMake(column, row);
+                }
                 conjoinedPieces++;
                 if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION){
                     [self deleteColumnPiecesStartingAtLocation:startOfConnectedPieces];
@@ -205,11 +199,9 @@
                 }
             } else {
                 conjoinedPieces = 1;
-                startOfConnectedPieces = CGPointMake(column, row);
             }
         } else {
             conjoinedPieces = 1;
-            startOfConnectedPieces = CGPointMake(column, row);
         }
     }
     
@@ -222,7 +214,7 @@
         [self setState:empty forPieceAt:CGPointMake(location.x, location.y + i)];
         //remove
     }
-    
+    [self movePiecesDown];
 }
 
 -(BOOL)examineDiagonalForWinningCondition
@@ -235,7 +227,8 @@
 {
     NSInteger X_location = _lastPieceAddedToBoard.x;
     NSInteger Y_location = _lastPieceAddedToBoard.y;
-    
+    CGPoint   startOfConnectedPieces;
+
     //get the bottom left diagonal location
     while ((X_location > 0) && (Y_location > 0)) {
         X_location--;
@@ -249,8 +242,14 @@
     for (int col = X_location, row = Y_location; col < COLUMNS-1 && row < ROWS-1; col++, row++) {
         if (matrix[col][row].state != empty) {
             if (matrix[col][row].state == matrix[col+1][row+1].state) {
+                if (conjoinedPieces == 1) {
+                    startOfConnectedPieces = CGPointMake(col, row);
+                }
                 conjoinedPieces++;
-                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION){
+                    [self deleteLeftDiagonalPiecesStartingAtLocation:startOfConnectedPieces];
+                    return YES;
+                }
             } else {
                 conjoinedPieces = 1;
             }
@@ -262,11 +261,22 @@
     return NO;
 }
 
+
+-(void)deleteLeftDiagonalPiecesStartingAtLocation:(CGPoint)location
+{
+    for (int i = 0 ; i < NUMBER_NEEDED_FOR_DELETION; i++) {
+        [self setState:empty forPieceAt:CGPointMake(location.x + i, location.y + i)];
+        //remove
+    }
+    [self movePiecesDown];
+}
+
 -(BOOL)examineRightDiagonalForWinningCondition
 {
     NSInteger X_location = _lastPieceAddedToBoard.x;
     NSInteger Y_location = _lastPieceAddedToBoard.y;
-    
+    CGPoint   startOfConnectedPieces;
+
     //get the bottom left diagonal location
     while ((X_location < COLUMNS-1) && (Y_location > 0)) {
         X_location++;
@@ -279,8 +289,14 @@
     for (int col = X_location, row = Y_location; col > 1 && row < ROWS-1; col--, row++) {
         if (matrix[col][row].state != empty) {
             if (matrix[col][row].state == matrix[col-1][row+1].state) {
+                if (conjoinedPieces == 1) {
+                    startOfConnectedPieces = CGPointMake(col, row);
+                }
                 conjoinedPieces++;
-                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION) return YES;
+                if (conjoinedPieces == NUMBER_NEEDED_FOR_DELETION){
+                    [self deleteRightDiagonalPiecesStartingAtLocation:startOfConnectedPieces];
+                    return YES;
+                }
             } else {
                 conjoinedPieces = 1;
             }
@@ -292,5 +308,42 @@
     return NO;
 }
 
+-(void)deleteRightDiagonalPiecesStartingAtLocation:(CGPoint)location
+{
+    for (int i = 0 ; i < NUMBER_NEEDED_FOR_DELETION; i++) {
+        [self setState:empty forPieceAt:CGPointMake(location.x - i, location.y + i)];
+        //remove
+    }
+    [self movePiecesDown];
+}
 
+
+-(void)movePiecesDown
+{
+    
+    for (int row = 1 ; row < ROWS; row++) {
+        for (int col = 0; col < COLUMNS; col++) {
+            if ([matrix[col][row] state] != empty) {
+                if ([matrix[col][row-1] state] == empty) {
+                    //swap the one above with the one below
+                    [self setState:[matrix[col][row] state] forPieceAt:CGPointMake(col, row-1)];
+                    [self setState:empty forPieceAt:CGPointMake(col, row)];
+                }
+            }
+        }
+    }
+    [self checkForNewWinnigCondition];
+}
+
+-(void)checkForNewWinnigCondition
+{
+    for (int col = 0; col < COLUMNS; col++) {
+        for (int row = 0; row < ROWS; row++) {
+            if (matrix[col][row].state != empty) {
+                [self examineGameBoardForWinningConditionFromPoint:CGPointMake(col, row)];
+            }
+        }
+    }
+    
+}
 @end
