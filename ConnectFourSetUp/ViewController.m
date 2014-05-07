@@ -69,7 +69,7 @@
             [UIView animateWithDuration:.25 animations:^{
                 _shape.transform = CGAffineTransformMakeScale(.9, .9);
                 _shape.center   = touchPoint;
-            } co1111mpletion:^(BOOL finished) {
+            } completion:^(BOOL finished) {
                 [UIView animateWithDuration:.25 animations:^{
                     _shape.transform = CGAffineTransformMakeScale(1, 1);
                 }];
