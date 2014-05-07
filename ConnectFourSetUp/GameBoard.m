@@ -105,12 +105,15 @@
     } else {
       thispoint =  [self addPieceWithState:blackPiece forColumn:column];
     }
-    [self examineGameBoardForWinningConditionFromPoint:_lastPieceAddedToBoard];
     [self nextTurn];
 
     return thispoint;
 }
 
+-(void)examineGameBoardForWinningCondition
+{
+    [self examineGameBoardForWinningConditionFromPoint:_lastPieceAddedToBoard];
+}
 -(CGPoint)addPieceWithState:(enum State)state forColumn:(NSInteger)column
 {
     CGPoint thispoint;

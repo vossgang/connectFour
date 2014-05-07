@@ -92,11 +92,12 @@
         CGPoint touchPoint = [touch locationInView:self.view];
             
         NSInteger locationInMatrix = touchPoint.x / CIRCLE_SIZE;
-         
+        
+        CGPoint destinationPoint = [_gameBoard addPieceForColumn:(int)locationInMatrix];
+
          //animate snap to column
          [UIView animateWithDuration:.25 animations:^{
              
-             CGPoint destinationPoint = [_gameBoard addPieceForColumn:(int)locationInMatrix];
              _shape.center = CGPointMake(destinationPoint.x, _shape.center.y);
              
              //animate down to destination point
