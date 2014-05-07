@@ -66,8 +66,6 @@
         CGPoint touchPoint = [touch locationInView:self.view];
         
         if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
-            NSLog(@"%f", [self distanceBetween:touchPoint and:_shape.center]);
-//                        _shape.center = touchPoint;
             [UIView animateWithDuration:.25 animations:^{
                 _shape.transform = CGAffineTransformMakeScale(.9, .9);
                 _shape.center   = touchPoint;
@@ -119,7 +117,8 @@
     return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
 }
 
-- (void)changeShapeColorToCurrent {
+- (void)changeShapeColorToCurrent
+{
     switch (_gameBoard.turn) {
         case blackTurn:
             _shape.backgroundColor = [UIColor blackColor];
