@@ -64,12 +64,12 @@
         CGPoint touchPoint = [touch locationInView:self.view];
         
         if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
-            
+            NSLog(@"%f", [self distanceBetween:touchPoint and:_shape.center]);
             //            _shape.center = touchPoint;
             [UIView animateWithDuration:.25 animations:^{
                 _shape.transform = CGAffineTransformMakeScale(.9, .9);
                 _shape.center   = touchPoint;
-            } completion:^(BOOL finished) {
+            } co1111mpletion:^(BOOL finished) {
                 [UIView animateWithDuration:.25 animations:^{
                     _shape.transform = CGAffineTransformMakeScale(1, 1);
                 }];
@@ -100,55 +100,14 @@
     for (UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self.view];
         
-        NSInteger touchStripe = CIRCLE_SIZE;
-        
-        if (touchPoint.x < touchStripe) {
-            [_gameBoard addPieceForColumn:0];
-            return;
+        CGPoint locationInMatrix;
+        for (locationInMatrix.x = 0; locationInMatrix.x < COLUMNS; locationInMatrix.x++) {
+            for (locationInMatrix.y = 0; locationInMatrix.y < ROWS; locationInMatrix.y++) {
+                if ([self distanceBetween:locationInMatrix and:touchPoint] < CIRCLE_SIZE) {
+                    [_gameBoard addPieceForColumn:(int)locationInMatrix.y];
+                }
+            }
         }
-        if (touchPoint.x > touchStripe && touchPoint.x < touchStripe + CIRCLE_SIZE) {
-            [_gameBoard addPieceForColumn:1];
-            return;
-        }
-        
-        touchStripe += CIRCLE_SIZE;
-        
-        if (touchPoint.x > touchStripe && touchPoint.x < touchStripe + CIRCLE_SIZE) {
-            [_gameBoard addPieceForColumn:2];
-            return;
-        }
-        
-        touchStripe += CIRCLE_SIZE;
-        
-        if (touchPoint.x > 136.5 && touchPoint.x < 182) {
-            [_gameBoard addPieceForColumn:3];
-            return;
-        }
-        
-        touchStripe += CIRCLE_SIZE;
-        
-        if (touchPoint.x > 182 && touchPoint.x < 227) {
-            [_gameBoard addPieceForColumn:4];
-            return;
-        }
-        
-        touchStripe += CIRCLE_SIZE;
-        
-        if (touchPoint.x > 227 && touchPoint.x < 273) {
-            [_gameBoard addPieceForColumn:5];
-            return;
-        }
-        
-        touchStripe += CIRCLE_SIZE;
-        
-        
-        if (touchPoint.x > 273) {
-            [_gameBoard addPieceForColumn:6];
-            return;
-        }
-        
-        
-        
     }
 }
 
@@ -157,5 +116,6 @@
 {
     return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
 }
+
 
 @end

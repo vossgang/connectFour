@@ -115,6 +115,7 @@
             matrix[column][i].state = state;
             _lastPieceAddedToBoard = CGPointMake(column, i);
             thispoint =  matrix[column][i].center;
+            break;
         }
     }
         
@@ -129,32 +130,6 @@
 -(GamePiece *)viewAt:(CGPoint)location {
     return matrix[(int)location.x][(int)location.y];
 }
-
-
-//-(NSInteger)familialNeighborCountForPieceAt:(CGPoint)location {
-//    
-//    if (matrix[(int)location.x][(int)location.y].isRed) {
-//        return  matrix[(int)location.x-1][(int)location.y-1].isRed +
-//                matrix[(int)location.x][(int)location.y-1].isRed   +
-//                matrix[(int)location.x+1][(int)location.y-1].isRed +
-//                matrix[(int)location.x-1][(int)location.y].isRed   +
-//                matrix[(int)location.x+1][(int)location.y].isRed   +
-//                matrix[(int)location.x-1][(int)location.y+1].isRed +
-//                matrix[(int)location.x][(int)location.y+1].isRed   +
-//                matrix[(int)location.x+1][(int)location.y+1].isRed;
-//    } else {
-//        return  matrix[(int)location.x-1][(int)location.y-1].isBlack +
-//                matrix[(int)location.x][(int)location.y-1].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y-1].isBlack +
-//                matrix[(int)location.x-1][(int)location.y].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y].isBlack   +
-//                matrix[(int)location.x-1][(int)location.y+1].isBlack +
-//                matrix[(int)location.x][(int)location.y+1].isBlack   +
-//                matrix[(int)location.x+1][(int)location.y+1].isBlack;
-//    }
-//    
-//}
-
 
 -(BOOL)examineGameBoardForWinningCondition {
     
@@ -267,7 +242,7 @@
     NSInteger Y_location = _lastPieceAddedToBoard.y;
     
     //get the bottom left diagonal location
-    while ((X_location < COLUMNS-1) && (Y_location > 0)) {
+    while ((X_location < COLUMNS - 1) && (Y_location > 0)) {
         X_location++;
         Y_location--;
         
