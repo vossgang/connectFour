@@ -105,7 +105,7 @@
              } completion:^(BOOL finished) {
                  _shape.center = CGPointMake(self.view.center.x, 50);
                  [self changeShapeColorToCurrent];
-                 [_gameBoard revealStateForNewPiece];
+                 [_gameBoard revealStateForNewPeice];
              }];
              
          }];
