@@ -19,7 +19,8 @@
 
 @implementation GameBoard
 
--(id)initWithEmptySlots {
+-(id)initWithEmptySlots
+{
     if (self = [super init]) {
         
         _turn = redTurn;
@@ -55,8 +56,8 @@
     return self;
 }
 
--(enum Turn)nextTurn {
-
+-(enum Turn)nextTurn
+{
     if (_turn == blackTurn) {
         _turn = redTurn;
         return redTurn;
@@ -66,8 +67,8 @@
     }
 }
 
--(BOOL)matrixIsNil {
-    
+-(BOOL)matrixIsNil
+{
     CGPoint slot;
     for (slot.x = 0; slot.x < ROWS; slot.x++) {
         for (slot.y = 0; slot.y < COLUMNS; slot.y++) {
@@ -79,22 +80,25 @@
 
 #pragma state access and interactions
 
--(enum State)getStateForPieceAt: (CGPoint)location {
+-(enum State)getStateForPieceAt: (CGPoint)location
+{
     return matrix[(int)location.x][(int)location.y].state;
 }
 
--(void)setState: (enum State)state forPieceAt: (CGPoint)location {
-    
+-(void)setState: (enum State)state forPieceAt: (CGPoint)location
+{
     matrix[(int)location.x][(int)location.y].state = state;
     
     return;
 }
 
--(void)setFrame:(CGRect)frame forPieceAt:(CGPoint)location {
+-(void)setFrame:(CGRect)frame forPieceAt:(CGPoint)location
+{
     matrix[(int)location.x][(int)location.y].frame = frame;
 }
 
--(CGPoint)addPieceForColumn:(NSInteger)column {
+-(CGPoint)addPieceForColumn:(NSInteger)column
+{
     CGPoint thispoint;
     if (_turn == redTurn) {
       thispoint =  [self addPieceWithState:redPiece forColumn:column];
@@ -107,8 +111,8 @@
     return thispoint;
 }
 
--(CGPoint)addPieceWithState:(enum State)state forColumn:(NSInteger)column {
-    
+-(CGPoint)addPieceWithState:(enum State)state forColumn:(NSInteger)column
+{
     CGPoint thispoint;
     for (int i = 0; i < ROWS; i++) {
         if (matrix[column][i].state == empty) {
@@ -122,7 +126,8 @@
     return thispoint;
 }
 
--(void)setPieceState:(enum State)state forLocation:(CGPoint)location   {
+-(void)setPieceState:(enum State)state forLocation:(CGPoint)location
+{
     matrix[(int)location.x][(int)location.y].state = state;
     return;
 }
@@ -204,7 +209,6 @@
             conjoinedPieces = 1;
         }
     }
-    
     return NO;
 }
 
@@ -233,11 +237,9 @@
     while ((X_location > 0) && (Y_location > 0)) {
         X_location--;
         Y_location--;
-        
     }
     
     NSInteger conjoinedPieces = 1;
-    
     
     for (int col = X_location, row = Y_location; col < COLUMNS-1 && row < ROWS-1; col++, row++) {
         if (matrix[col][row].state != empty) {
@@ -281,7 +283,6 @@
     while ((X_location < COLUMNS-1) && (Y_location > 0)) {
         X_location++;
         Y_location--;
-        
     }
     
     NSInteger conjoinedPieces = 1;
@@ -320,7 +321,6 @@
 
 -(void)movePiecesDown
 {
-    
     for (int row = 1 ; row < ROWS; row++) {
         for (int col = 0; col < COLUMNS; col++) {
             if ([matrix[col][row] state] != empty) {
