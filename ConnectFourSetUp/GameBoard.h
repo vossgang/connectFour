@@ -31,5 +31,7 @@
 
 -(GamePiece *)viewAt:(CGPoint)location;
 -(BOOL)examineGameBoardForWinningConditionFromPoint:(CGPoint)point;
+-(void)revealStateForNewPeice;
+
 
 @end
