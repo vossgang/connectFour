@@ -36,8 +36,8 @@
 
 }
 
--(void)setupBoardView {
-    
+-(void)setupBoardView
+{
     CGPoint locationInMatrix;
     
     //setup initial cell states
@@ -50,17 +50,13 @@
     return;
 }
 
-
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
-    
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     for (UITouch *touch in touches) {
         
         CGPoint touchPoint = [touch locationInView:self.view];
@@ -78,30 +74,21 @@
             }];
         }
     }
-    
-    
-  
 }
 
-
--(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+-(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
+{
     for (UITouch *touch in touches) {
-        
         CGPoint touchPoint = [touch locationInView:self.view];
-        
         if ([self distanceBetween:touchPoint and:_shape.center] < (_shape.frame.size.width * 2)) {
-            
             _shape.center = touchPoint;
         }
     }
 }
 
-
-
--(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-     
-     for (UITouch *touch in touches) {
+-(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    for (UITouch *touch in touches) {
         CGPoint touchPoint = [touch locationInView:self.view];
             
         NSInteger locationInMatrix = touchPoint.x / CIRCLE_SIZE;
@@ -128,19 +115,22 @@
     
 }
 
-
 - (float)distanceBetween: (CGPoint) p1 and: (CGPoint)p2
 {
     return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
 }
 
-- (void)changeShapeColorToCurrent {
+- (void)changeShapeColorToCurrent
+{
     switch (_gameBoard.turn) {
         case blackTurn:
             _shape.backgroundColor = [UIColor blackColor];
             break;
         case redTurn:
             _shape.backgroundColor = [UIColor redColor];
+            break;
+        default:
+            _shape.backgroundColor = [UIColor clearColor];
             break;
     }
 }

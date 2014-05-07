@@ -119,11 +119,18 @@
             matrix[column][i].state = state;
             _lastPieceAddedToBoard = CGPointMake(column, i);
             thispoint =  matrix[column][i].center;
+            matrix[column][i].alpha = 0;
             break;
         }
     }
     
     return thispoint;
+}
+
+-(void)revealStateForNewPeice
+{
+    [self viewAt:_lastPieceAddedToBoard].alpha = 1;
+    
 }
 
 -(void)setPieceState:(enum State)state forLocation:(CGPoint)location
@@ -141,7 +148,6 @@
 {
     _lastPieceAddedToBoard = point;
     if ([self examineRowForWinningCondition] || [self examineColumnForWinningCondition] || [self examineDiagonalForWinningCondition]) {
-        NSLog(@"WIN!");
         return YES;
     }
     
@@ -325,6 +331,11 @@
         for (int col = 0; col < COLUMNS; col++) {
             if ([matrix[col][row] state] != empty) {
                 if ([matrix[col][row-1] state] == empty) {
+//                    [UIView animateWithDuration:1 animations:^{
+//                        <#code#>
+//                    } completion:^(BOOL finished) {
+//                        <#code#>
+//                    }];
                     //swap the one above with the one below
                     [self setState:[matrix[col][row] state] forPieceAt:CGPointMake(col, row-1)];
                     [self setState:empty forPieceAt:CGPointMake(col, row)];
